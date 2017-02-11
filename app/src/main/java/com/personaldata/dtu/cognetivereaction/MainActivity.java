@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //bgRelativeLayout.setBackgroundColor(Color.RED);
-                //startActivity(new Intent(c, Reaction.class));
-
                 // First boot -> Wait for it -> Click too soon OR Click! -> ms -> Wait for it
 
                 if (firstBoot == true) {
