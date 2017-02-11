@@ -24,8 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean counterStarted = false; // Reaction time counter started flag
     long tStart; // Reaction time
     int tries = 0;
+    double elapsedSeconds = 0;
+    Handler handler = new Handler(); // handler too ensure possibilty to stup it if Too soon
+    Runnable runnable; // runnable for running the handler , as above.
 
-    @Override
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -59,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                     Random rand = new Random();
                     int randSwitcher = rand.nextInt(3000 - 1000) + 1000;
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+                    //Handler handler = new Handler();
+                    runnable = new Runnable() {
                         public void run() {
                             bgRelativeLayout.setBackgroundColor(Color.RED);
                             tvTitle.setText("CLICK!");
@@ -68,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
                             counterStarted = true;
                             tStart = SystemClock.elapsedRealtime();
                         }
-                    }, randSwitcher);
+                    };
+                    handler.postDelayed(runnable, randSwitcher);
 
                 } else if (counterStarted == true && tries != TOTAL_TRIALS) {
                     long endTime = SystemClock.elapsedRealtime();
                     long elapsedMilliSeconds = endTime - tStart;
-                    double elapsedSeconds = elapsedMilliSeconds / 1000.0;
+                    elapsedSeconds = elapsedMilliSeconds / 1000.0;
                     tries++;
-
                     tvTitle.setText(elapsedSeconds + " ms");
                     tvBullet2.setVisibility(View.VISIBLE);
                     tvBullet2.setText("Tap again for next trial");
@@ -86,8 +90,20 @@ public class MainActivity extends AppCompatActivity {
                     bgRelativeLayout.setBackgroundColor(Color.parseColor("#FF0099CC"));
                 }
 
+                //Too soon:
+                else if (counterStarted == false && tries != TOTAL_TRIALS) {
+                    bgRelativeLayout.setBackgroundColor(Color.parseColor("#FF0099CC"));
+                    handler.removeCallbacks(runnable);
+                    tvTitle.setText(" Too soon");
+                    tvBullet2.setVisibility(View.VISIBLE);
+                    tvBullet2.setText("Tap again to go back and wait");
+                    firstBoot = true;
+                }
+
                 if(tries >= TOTAL_TRIALS) {
+
                     tvTitle.setText("FINISHED. AVG etc.");
+                    //tvTitle.setText("Finished" + elapsedSeconds + " ms");
                     tvBullet2.setVisibility(View.INVISIBLE);
                     counterStarted = false;
                     firstBoot = false;
