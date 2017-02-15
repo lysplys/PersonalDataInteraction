@@ -65,17 +65,6 @@ android:id="@+id/graph" />
             android:layout_height="200dip"
             android:id="@+id/graph2" /> -->
 
-        <TextView
-            android:text="data"
-            android:layout_width="346dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:id="@+id/datatest"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/black"
-            android:layout_weight="4.89" /> -->
 
     </LinearLayout>
 

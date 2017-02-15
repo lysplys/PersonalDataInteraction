@@ -28,8 +28,7 @@ import java.util.List;
 
 public class GraphTest extends AppCompatActivity {
     String[] ar;
-    int int_av1;
-    List<Integer> myList;
+    Float average;
 
 
     @Override
@@ -54,21 +53,10 @@ public class GraphTest extends AppCompatActivity {
 
             String line = br.readLine();
             if(line != null) {
-                //for testing file output
-                //text.append(line);
-
                 //for graph data
                 ar=line.split(",");
-                //myList = new ArrayList<Integer>();
-
+                //date
                 String date = ar[0];
-
-                //for(int i = 1; i<11; i++) {
-
-                    //myList.add(Integer.parseInt(ar[i]));
-
-                //}
-
 
 
             }
@@ -78,11 +66,18 @@ public class GraphTest extends AppCompatActivity {
             //You'll need to add proper error handling here
         }
 
-        //Find the view by its id
-       // TextView datatest = (TextView)findViewById(R.id.datatest);
+       TextView AverageData = (TextView)findViewById(R.id.textView);
+       // for(int i= 0;i<11; i++){
+         //   Float average = Float.parseFloat(ar[i]);
+           // average =+ average;
+        //}
+        Float Average = Float.parseFloat(ar[0])+ Float.parseFloat(ar[1]) + Float.parseFloat(ar[2]) + Float.parseFloat(ar[3]) + Float.parseFloat(ar[4]) + Float.parseFloat(ar[5]) + Float.parseFloat(ar[6])+ Float.parseFloat(ar[7]) + Float.parseFloat(ar[8]) + Float.parseFloat(ar[9]) + Float.parseFloat(ar[10]);
+        float totalAverage = Average/10;
 
+        String total = Float.toString(totalAverage);
+        Log.i("graph", total);
 //Set the text
-        //datatest.setText(text);
+        AverageData.setText(total);
 
 
 //graph1
@@ -92,8 +87,9 @@ public class GraphTest extends AppCompatActivity {
         graph.getGridLabelRenderer().setVerticalAxisTitle("Time");
 
 
-        DataPoint[] dataPoints = new DataPoint[10]; // declare an array of DataPoint objects with the same size as your list
-        for (int i = 0; i < 10; i++) {
+        DataPoint[] dataPoints = new DataPoint[ar.length - 1]; // declare an array of DataPoint objects with the same size as your list
+        for (int i = 0; i < ar.length-1; i++) {
+
 
             // add new DataPoint object to the array for each of your list entries
 
@@ -101,7 +97,7 @@ public class GraphTest extends AppCompatActivity {
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
-
+        Log.i("graphtest", ar[5]);
         Log.i("graphtest", ar[1]);
         graph.addSeries(series);
 

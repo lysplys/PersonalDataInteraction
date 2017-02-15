@@ -150,7 +150,9 @@ public class MainActivity extends AppCompatActivity {
                     tvBullet2.setVisibility(View.INVISIBLE);
                     counterStarted = false;
                     firstBoot = false;
-                    //startActivity(new Intent(c, GraphTest.class));
+                    startActivity(new Intent(MainActivity.this, GraphTest.class));
+
+
                 }
 
 
