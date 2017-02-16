@@ -1,9 +1,5 @@
 package com.personaldata.dtu.cognetivereaction;
 
-/**
- * Created by lyspl on 15-02-2017.
- */
-
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -14,6 +10,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -22,14 +19,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 public class GraphTest extends AppCompatActivity {
-    String[] ar;
-    Float average;
 
+    String[] splitLine;
+    String getLastLine, getLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,63 +39,68 @@ public class GraphTest extends AppCompatActivity {
         File sdcard = Environment.getExternalStorageDirectory();
 
         //Get text file
-        File file = new File(sdcard,"PDI" +File.separator + "Logs"+ File.separator + "log_data.txt");
+        File file = new File(sdcard, "PDI" + File.separator + "Logs"+ File.separator + "log_data.txt");
 
         //Read text from file
-       // StringBuilder text = new StringBuilder();
+        // StringBuilder text = new StringBuilder();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader getFile = new BufferedReader(new FileReader(file));
 
-
-            String line = br.readLine();
-            if(line != null) {
-                //for graph data
-                ar=line.split(",");
-                //date
-                String date = ar[0];
-
-
+            while ((getLine = getFile.readLine()) != null) {
+                getLastLine = getLine;
             }
-            br.close();
+
+            splitLine = getLastLine.split(",");
+            //String getTimeStamp = getLastLine.substring(getLastLine.lastIndexOf(",") + 1);
+
+            getFile.close();
         }
         catch (IOException e) {
             //You'll need to add proper error handling here
         }
 
-       TextView AverageData = (TextView)findViewById(R.id.textView);
-       // for(int i= 0;i<11; i++){
-         //   Float average = Float.parseFloat(ar[i]);
-           // average =+ average;
-        //}
-        Float Average = Float.parseFloat(ar[0])+ Float.parseFloat(ar[1]) + Float.parseFloat(ar[2]) + Float.parseFloat(ar[3]) + Float.parseFloat(ar[4]) + Float.parseFloat(ar[5]) + Float.parseFloat(ar[6])+ Float.parseFloat(ar[7]) + Float.parseFloat(ar[8]) + Float.parseFloat(ar[9]) + Float.parseFloat(ar[10]);
-        float totalAverage = Average/10;
+        /*
+        String test = "0.2, 0.4, 0.56, 0.34, 0.356, 123123123";
+        String[] testSplit = test.split(",");
+        */
 
-        String total = Float.toString(totalAverage);
-        Log.i("graph", total);
-//Set the text
-        AverageData.setText(total);
+        Log.i("GraphTest", "First element: " + splitLine[0] + ", Last element: " + splitLine[splitLine.length - 1] + "");
 
-
-//graph1
-       GraphView graph = (GraphView) findViewById(R.id.graph);
-        graph.setTitle("Trials");
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Trial");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Time");
-
-
-        DataPoint[] dataPoints = new DataPoint[ar.length - 1]; // declare an array of DataPoint objects with the same size as your list
-        for (int i = 0; i < ar.length-1; i++) {
-
-
-            // add new DataPoint object to the array for each of your list entries
-
-            dataPoints[i] = new DataPoint(i, Float.parseFloat(ar[i])); // not sure but I think the second argument should be of type double
+        double scoreAvg = 0.0;
+        double sum = 0;
+        for(int i = 0; i < splitLine.length - 1; i++) {
+            sum += Float.parseFloat(splitLine[i]);
         }
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
-        Log.i("graphtest", ar[5]);
-        Log.i("graphtest", ar[1]);
+        scoreAvg = 1.0d * sum / (splitLine.length - 1);
+
+        TextView averageData = (TextView)findViewById(R.id.textView);
+        averageData.setText(Double.toString(Double.parseDouble(new DecimalFormat("##.###").format(scoreAvg))) + " s");
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph.setTitle("Reaction time");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Trials");
+        //graph.getGridLabelRenderer().setVerticalAxisTitle("Time");
+        graph.getGridLabelRenderer().setNumHorizontalLabels(splitLine.length - 1);
+
+        DataPoint[] dataPoints = new DataPoint[splitLine.length - 1]; // declare an array of DataPoint objects with the same size as your list
+        for (int i = 0; i < splitLine.length - 1; i++) {
+            // add new DataPoint object to the array for each of your list entries
+            dataPoints[i] = new DataPoint(i + 1, Float.parseFloat(splitLine[i])); // not sure but I think the second argument should be of type double
+        }
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints); // This one should be obvious right? :)
+
+        /*
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        */
         graph.addSeries(series);
 
         // styling series
@@ -114,7 +116,4 @@ public class GraphTest extends AppCompatActivity {
 
         series.setCustomPaint(paint);
     }
-
-
 }
-

@@ -9,22 +9,23 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp"
+        android:layout_marginTop="20sp">
 
         <TextView
             android:text="Average reaction time:"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="24dp"
             android:id="@+id/averageText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColorLink="@android:color/white"
-            android:textColor="@android:color/black" />
+            android:gravity="center_horizontal" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
@@ -32,39 +33,15 @@
             android:textColor="@android:color/black"
             android:layout_marginBottom="36dp"
             android:layout_above="@+id/AveragenumberText"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal" />
 
-
-    </LinearLayout>
-    <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp" >
-
-<com.jjoe64.graphview.GraphView
-android:layout_width="match_parent"
-android:layout_height="200dip"
-android:id="@+id/graph" />
-
-</LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="1">
-
-       <!-- <com.jjoe64.graphview.GraphView
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
             android:layout_height="200dip"
-            android:id="@+id/graph2" /> -->
-
+            android:id="@+id/graph"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="-20sp" />
 
     </LinearLayout>
 

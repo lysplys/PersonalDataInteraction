@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                     firstBoot = true;
                     bgRelativeLayout.setBackgroundColor(Color.parseColor("#FF0099CC"));
 
-
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM DD Hms");
                     Date now = new Date();
                     String timeStamp = formatter.format(now);//like 2016_01_12.txt
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                         writer.append(elapsedSeconds + ", ");
 
-                        if(tries >= 10){
+                        if(tries >= TOTAL_TRIALS){
                             writer.append(timeStamp + "\n");
                         }
 
@@ -145,14 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if(tries >= TOTAL_TRIALS) {
 
-                    tvTitle.setText("FINISHED. AVG etc.");
-                    tvTitle.setText("Finished" + elapsedSeconds + " ms");
-                    tvBullet2.setVisibility(View.INVISIBLE);
+                    //tvTitle.setText("FINISHED. AVG etc.");
+                    //tvTitle.setText("Finished" + elapsedSeconds + " ms");
+                    //tvBullet2.setVisibility(View.INVISIBLE);
                     counterStarted = false;
                     firstBoot = false;
-                    startActivity(new Intent(MainActivity.this, GraphTest.class));
-
-
+                    startActivity(new Intent(c, GraphTest.class));
                 }
 
 
