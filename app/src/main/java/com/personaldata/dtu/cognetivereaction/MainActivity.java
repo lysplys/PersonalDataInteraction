@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean firstBoot = true; // First run flag
     private boolean counterStarted = false; // Reaction time counter started flag
     long tStart; // Reaction time
-    int tries = 0;
+    int tries = 0; // Number of tries
     double elapsedSeconds = 0;
     Handler handler = new Handler(); // handler too ensure possibilty to setup it if Too soon
     Runnable runnable; // runnable for running the handler , as above.
