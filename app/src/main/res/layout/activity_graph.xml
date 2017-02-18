@@ -40,9 +40,17 @@
             android:layout_width="match_parent"
             android:layout_height="200dip"
             android:id="@+id/graph"
-            android:layout_marginTop="20sp"
             android:layout_marginLeft="-20sp" />
 
     </LinearLayout>
+
+    <Button
+        android:text="↺ Restart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginTop="25sp"
+        android:onClick="restartTrials" />
 
 </LinearLayout>

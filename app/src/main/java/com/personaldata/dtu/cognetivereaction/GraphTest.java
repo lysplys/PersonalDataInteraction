@@ -1,5 +1,6 @@
 package com.personaldata.dtu.cognetivereaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -116,4 +118,11 @@ public class GraphTest extends AppCompatActivity {
 
         series.setCustomPaint(paint);
     }
+
+    public void restartTrials(View view)
+    {
+        Intent intent = new Intent(GraphTest.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
